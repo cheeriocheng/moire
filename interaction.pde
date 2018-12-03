@@ -11,9 +11,11 @@ void keyPressed() {
     
   }else if (key == CODED) {
     if (keyCode == LEFT) {
-      // moveGrating(-pitch);
+       //moveGrating(-pitch);
+       gratingDx -= pitch;
     } else if (keyCode == RIGHT) {
-      // moveGrating(pitch);
+       //moveGrating(pitch);
+       gratingDx += pitch;
     } 
   } 
 }

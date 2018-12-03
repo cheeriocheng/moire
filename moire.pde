@@ -5,65 +5,58 @@ PImage[] frames;//frames
 int totalFrames = 3; //total number of frames that compose the animation
 int totalSteps; //each step have [totalFrames] of frames 
 int pitch = 3 ; //for each frame
- 
+int gratingDx = 0;
 PImage moireImage;   
 PGraphics gratingImage;
 color black ;
+
 
 // image output
 boolean saveOneFrame = false;
 
 void setup() {
-    //intro 
-    println("---\npress M to create a new .png moire image ");
-      println("press G to create a new .png grating image ");
+  //intro 
+  println("---\npress M to create a new .png moire image ");
+  println("press G to create a new .png grating image ");
 
   size(900, 900);
 
   totalSteps = floor(width/pitch/totalFrames) + 1 ; 
 
   background(255);
- 
+
 
   moireImage = loadImage("dots.png");
-  image( moireImage, 0,0); 
+  image( moireImage, 0, 0); 
 
   //create grating with transparency
   //refer to https://processing.org/discourse/beta/num_1191532471.html
-    gratingImage = createGraphics(width,height, JAVA2D);
-    gratingImage.beginDraw();
-    gratingImage.fill(0,255);
-   
-    for (int j = 0 ; j < totalSteps ; j ++ ){
-      gratingImage.rect((totalFrames * j +1 ) * pitch, 0, 
-        (totalFrames-1)*pitch , height ); 
-    }
-     gratingImage.endDraw();
+  gratingImage = createGraphics(width, height, JAVA2D);
+  gratingImage.beginDraw();
+  gratingImage.fill(0, 255);
 
- 
-
+  for (int j = 0; j < totalSteps; j ++ ) {
+    gratingImage.rect((totalFrames * j +1 ) * pitch, 0, 
+      (totalFrames-1)*pitch, height );
+  }
+  gratingImage.endDraw();
 }
 
 void draw() {
 
+  if (saveOneFrame == true) {
 
-  
-  
-   if (saveOneFrame == true) {
-
-     image( moireImage, 0,0); 
+    image( moireImage, 0, 0); 
     saveFrame(timestamp()+".png");
     saveOneFrame = false;
   }
 
-
-     image(gratingImage,0,0);
-
-
+  image( moireImage, 0, 0);
+  image(gratingImage, gratingDx, 0);
 }
 
 
-void createMoireImage(){
+void createMoireImage() {
   totalFrames = 3; 
   frames = new PImage[totalFrames];
   frames[0] = loadImage("/Users/philetus/Documents/illusion/circle1.png");
@@ -74,26 +67,23 @@ void createMoireImage(){
   // frames[1] = loadImage("/Users/philetus/Documents/illusion/daisy2.png");
   // frames[2] = loadImage("/Users/philetus/Documents/illusion/daisy3.png");
 
- 
-//generate the image 
+
+  //generate the image 
   int x = 0;
   int y = 0;
   int w = pitch;
   int h = height; 
   PImage tempImage ; 
-  
 
-  for (int j = 0 ; j < totalSteps ; j ++ ){
-      for (int i = 0 ; i < totalFrames; i++){
-            x = ( totalFrames * j + i ) * pitch; 
-            tempImage = frames[i].get (x,y,w,h);
-            //image(tempImage, x, y );
-            set (x,y,tempImage);
-      }
+
+  for (int j = 0; j < totalSteps; j ++ ) {
+    for (int i = 0; i < totalFrames; i++) {
+      x = ( totalFrames * j + i ) * pitch; 
+      tempImage = frames[i].get (x, y, w, h);
+      //image(tempImage, x, y );
+      set (x, y, tempImage);
+    }
   }
-
-
-
 }
 
 // void moveGrating(int dx){
@@ -104,7 +94,7 @@ void createMoireImage(){
 // void renderGrating(int dx){
 //     // generate the grating 
 //     fill (0);
-    
+
 //   for (int j = 0 ; j < totalSteps ; j ++ ){
 
 //       rect ( dx+(totalFrames * j +1 ) * pitch, 0, (totalFrames-1)*pitch , height ); 
