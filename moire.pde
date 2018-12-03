@@ -23,7 +23,7 @@ void setup() {
   totalSteps = floor(width/pitch/totalFrames) + 1 ; 
 
   background(255);
-  black = color(12,90,0);
+ 
 
   moireImage = loadImage("dots.png");
   image( moireImage, 0,0); 
@@ -46,14 +46,19 @@ void setup() {
 
 void draw() {
 
-     image(gratingImage,0,0);
 
   
   
    if (saveOneFrame == true) {
+
+     image( moireImage, 0,0); 
     saveFrame(timestamp()+".png");
     saveOneFrame = false;
   }
+
+
+     image(gratingImage,0,0);
+
 
 }
 
@@ -109,4 +114,3 @@ void createMoireImage(){
 String timestamp() {
   return String.format("20%1$ty%1$tm%1$td_%1$tH%1$tM%1$tS", Calendar.getInstance());
 }
-

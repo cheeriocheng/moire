@@ -5,6 +5,7 @@ void keyPressed() {
     println("gratingImage.png saved.");
   } else if (key=='m' || key=='M') {
     createMoireImage();
+    saveOneFrame = true;
   
   } else if (key=='p' || key=='P') {
     
