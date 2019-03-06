@@ -1,11 +1,11 @@
 //this code works with verticle grate as masks
 
 import java.util.Calendar;
-
+//import java.io.File;
 
 
 PImage[] frames;//frames to be loaded and stithced together 
-int pitch = 3 ; //pitch is how wide each frame is in the moire. also how wide the slot is in the grate
+int pitch = 10 ; //pitch is how wide each frame is in the moire. also how wide the slot is in the grate
 int totalFrames = 3; //total number of frames that compose the animation
 int totalSteps; //each step have [totalFrames] of frames  
 int gratingDx = 0; //offset for the grate 
@@ -18,15 +18,22 @@ boolean saveOneFrame = false;
 
 void setup() {
   //intro 
-  println("---\npress M to create a new .png moire image ");
+  println("---\npress M to create a new .png base image ");
   println("press G to create a new .png grating image ");
 
-  size(900, 900);
+  //size(900, 900);
+  size(1050,600);
   background(255);
-
-  //moireImage = loadImage("morelImages/twist_"+pitch+"_"+totalFrames+".png");
-  moireImage = loadImage("morelImages/twist.png");
-
+  
+  //check if the file exists
+  File f = new File(sketchPath()+"/baseLayer/bc_"+pitch+"_"+totalFrames+".png");
+  if (f.isFile()){
+    moireImage = loadImage("baseLayer/bc_"+pitch+"_"+totalFrames+".png");
+    
+  }else{
+    println(f.getPath()," doesn't exist.");
+    moireImage = loadImage("baseLayer/twist_3_3.png");
+  }
   //create grating with transparency at the size of the screen
   //refer to https://processing.org/discourse/beta/num_1191532471.html
   gratingImage = createGraphics(width, height, JAVA2D);
@@ -45,7 +52,7 @@ void draw() {
   
   //this saves the morel image stitched in createMoireImage()
   if (saveOneFrame == true) {
-    saveFrame("morelImages/"+timestamp()+"_"+pitch+"_"+totalFrames+".png");
+    saveFrame("baseLayer/"+timestamp()+"_"+pitch+"_"+totalFrames+".png");
     println("morel image stitched and saved");
     saveOneFrame = false;
   }
@@ -59,8 +66,8 @@ void createMoireImage(String title, int tFrames) {
   frames = new PImage[tFrames];
   
   for (int i = 0; i<tFrames; i++){
-    //frames[i] = loadImage("frames/"+title+i+".png");
-    frames[i] = loadImage("frames/" + title + "-"+(i*5+1)+" (dragged).png");
+    frames[i] = loadImage("frames/"+title+i+".png");
+    //frames[i] = loadImage("frames/" + title + "-"+(i*5+1)+" (dragged).png");
   }
   
   

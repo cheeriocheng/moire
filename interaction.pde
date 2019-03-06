@@ -4,7 +4,7 @@ void keyPressed() {
     gratingImage.save("gratingImage_"+pitch+"_"+totalFrames+".png"); 
     println("grating image saved.");
   } else if (key=='m' || key=='M') {
-    createMoireImage("twist", 6);
+    createMoireImage("bc", totalFrames);
     saveOneFrame = true;
   
   } else if (key=='p' || key=='P') {
