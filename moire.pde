@@ -1,4 +1,8 @@
+//this code works with verticle grate as masks
+
 import java.util.Calendar;
+
+
 
 PImage[] frames;//frames to be loaded and stithced together 
 int pitch = 3 ; //pitch is how wide each frame is in the moire. also how wide the slot is in the grate
@@ -20,8 +24,8 @@ void setup() {
   size(900, 900);
   background(255);
 
-  moireImage = loadImage("morelImages/von.png"); 
-  //moireImage = loadImage("morelImages/dots.png");
+  //moireImage = loadImage("morelImages/twist_"+pitch+"_"+totalFrames+".png");
+  moireImage = loadImage("morelImages/twist.png");
 
   //create grating with transparency at the size of the screen
   //refer to https://processing.org/discourse/beta/num_1191532471.html
@@ -51,12 +55,14 @@ void draw() {
 }
 
 //stitch images  
-void createMoireImage(String title, int totalFrames) {
-  frames = new PImage[totalFrames];
+void createMoireImage(String title, int tFrames) {
+  frames = new PImage[tFrames];
   
-  for (int i = 0; i<totalFrames; i++){
-    frames[i] = loadImage("frames/"+title+i+".png");
+  for (int i = 0; i<tFrames; i++){
+    //frames[i] = loadImage("frames/"+title+i+".png");
+    frames[i] = loadImage("frames/" + title + "-"+(i*5+1)+" (dragged).png");
   }
+  
   
   //stitch the images and put them on screan 
   int x = 0;
